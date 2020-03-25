@@ -63,19 +63,19 @@ def _train_dev_split(X, Y, dev_ratio=0.25):
 
 
 '''feature engineering'''
-# current best:0.8865656358795823 0.880759
+# current best:0.8865861150931804  0.8811279026907483
 # 210 507 212 334 323 343 0 288 213 412
 # quatratic:210, 1, 6, 18, 21, 102, 118, 132, 135, 137, 236, 296 從297～510都試過不能變好
 # 三次：323 515
 # 四次:502, 498
 # 新增交互項
-# column1 = [73, 98, 211, 130  or 7 205 , 7 318
+# column1 = [73, 98, 211, 130   7 318
 # column2 = [436, 459, 346, 350
 # 刪除：
 # 在train 跟 test都新增2次項
 # 這裡有改
 what += 1
-print(266+what)
+print(319+what)
 column = [210, 1, 6, 18, 21, 102, 118, 132, 135, 137, 236, 296]
 X_train_new = np.power(X_train[:, column], 2).reshape(-1, len(column))
 X_test_new = np.power(X_test[:, column], 2).reshape(-1, len(column))
@@ -96,8 +96,8 @@ X_train = np.concatenate((X_train, X_train_new), axis=1)
 X_test = np.concatenate((X_test, X_test_new), axis=1)
 
 # 新增交互項 195~209 210 230 366+what 371+what 150不行 下去
-column1 = [73, 98, 211, 130]
-column2 = [436, 459, 346, 350]
+column1 = [73, 98, 211, 130, 7]
+column2 = [436, 459, 346, 350, 205]
 X_train_new = (X_train[:, column1]*X_train[:, column2]
                ).reshape(-1, len(column1))
 X_test_new = (X_test[:, column1] *
@@ -324,6 +324,6 @@ with open(X_test_fpath) as f:
 features = np.array(content)
 for i in ind[0:10]:
     print(i, w[i])
-# # # 這裡有改
-# if dev_acc[-1] > 0.88094360487 and train_acc[-1] >= 0.88656563587959:
+# # 這裡有改
+# if dev_acc[-1] > 0.8811279027 and train_acc[-1] >= 0.8865861151:
 #     break
